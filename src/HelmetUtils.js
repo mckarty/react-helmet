@@ -430,7 +430,7 @@ const updateTags = (type, tags) => {
             const newElement = document.createElement(type);
 
             for (const attribute in tag) {
-                if (tag.hasOwnProperty(attribute)) {
+                if (tag.hasOwnProperty(attribute) && attribute !== 'data-deny-helmet-attr') {
                     if (attribute === TAG_PROPERTIES.INNER_HTML) {
                         newElement.innerHTML = tag.innerHTML;
                     } else if (attribute === TAG_PROPERTIES.CSS_TEXT) {
@@ -450,7 +450,11 @@ const updateTags = (type, tags) => {
                 }
             }
 
-            newElement.setAttribute(HELMET_ATTRIBUTE, "true");
+            if (tag["data-deny-helmet-attr"]) {
+                newElement.removeAttribute(HELMET_ATTRIBUTE);
+            } else {
+                newElement.setAttribute(HELMET_ATTRIBUTE, "true");
+            }
 
             // Remove a duplicate tag from domTagstoRemove, so it isn't cleared.
             if (
