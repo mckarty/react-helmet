@@ -457,7 +457,7 @@ const updateTags = (type, tags) => {
                 }
             }
 
-            if (tag.[HELMET_DENY_ATTRIBUTE]) {
+            if (tag[HELMET_DENY_ATTRIBUTE]) {
                 newElement.removeAttribute(HELMET_ATTRIBUTE);
             } else {
                 newElement.setAttribute(HELMET_ATTRIBUTE, "true");
