@@ -3,6 +3,7 @@ import objectAssign from "object-assign";
 import {
     ATTRIBUTE_NAMES,
     HELMET_ATTRIBUTE,
+    HELMET_DENY_ATTRIBUTE,
     HELMET_PROPS,
     HTML_TAG_MAP,
     REACT_TAG_MAP,
@@ -430,7 +431,7 @@ const updateTags = (type, tags) => {
             const newElement = document.createElement(type);
 
             for (const attribute in tag) {
-                if (tag.hasOwnProperty(attribute) && attribute !== 'data-deny-helmet-attr') {
+                if (tag.hasOwnProperty(attribute) && attribute !== HELMET_DENY_ATTRIBUTE) {
                     if (attribute === TAG_PROPERTIES.INNER_HTML) {
                         newElement.innerHTML = tag.innerHTML;
                     } else if (attribute === TAG_PROPERTIES.CSS_TEXT) {
@@ -450,7 +451,7 @@ const updateTags = (type, tags) => {
                 }
             }
 
-            if (tag["data-deny-helmet-attr"]) {
+            if (tag.HELMET_DENY_ATTRIBUTE) {
                 newElement.removeAttribute(HELMET_ATTRIBUTE);
             } else {
                 newElement.setAttribute(HELMET_ATTRIBUTE, "true");

@@ -65,3 +65,5 @@ export const SELF_CLOSING_TAGS = [
 ];
 
 export const HELMET_ATTRIBUTE = "data-react-helmet";
+
+export const HELMET_DENY_ATTRIBUTE = "data-deny-helmet-attr";
