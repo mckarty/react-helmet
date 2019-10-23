@@ -425,6 +425,27 @@ const updateTags = (type, tags) => {
         `${type}[${HELMET_ATTRIBUTE}]`
     );
     const oldTags = Array.prototype.slice.call(tagNodes);
+    const tagsWithNoDataAttributeSelector =
+        'meta[property], meta[name="description"], meta[name="keywords"]';
+
+    if (type === TAG_NAMES.META) {
+        const metaNodes = headElement.querySelectorAll(
+            tagsWithNoDataAttributeSelector
+        );
+        const metaTags = Array.prototype.slice.call(metaNodes);
+
+        metaTags.forEach(metaTag => {
+            if (
+                !oldTags.some((existingTag, index) => {
+                    indexToDelete = index;
+                    return metaTag.isEqualNode(existingTag);
+                })
+            ) {
+                oldTags.push(metaTag);
+            }
+        });
+    }
+
     const newTags = [];
     let indexToDelete;
 
